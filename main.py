@@ -16,7 +16,22 @@ while running:
     player.choose_action()
     choice = input("Choose action:")
     index = int(choice) - 1
+    if index == 0:
+        dmg = player.generate_damage()
+        enemy.take_damage(dmg)
+        print("you attacked for", dmg, "points of damage. enemy HP:", enemy.get_hp())
 
-    print("You chose", index)
+    enemy_choice = 1
 
-    running = False
+    enemy_dmg = enemy.generate_damage()
+    player.take_damage(enemy_dmg)
+    print("Enemy attacks for", enemy_dmg, "player HP", player.get_hp())
+
+    if enemy.get_hp() == 0:
+        print(bcolors.OKGREEN + "You win" + bcolors.ENDC)
+        running = False
+    elif player.get_hp() == 0:
+        print(bcolors.FAIL + "Your enemy has defeated you" + bcolors.ENDC)
+        running = False
+
+
